@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eketuvamba</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#101010;
+    color:white;
+}
+
+/* LOGIN */
+
+#loginPage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:
+    radial-gradient(circle at top,#123d25,#101010 55%);
+}
+
+.loginBox{
+    width:100%;
+    max-width:390px;
+    background:#181818;
+    padding:30px 22px;
+    border-radius:18px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+    text-align:center;
+}
+
+.logo{
+    font-size:55px;
+    margin-bottom:8px;
+}
+
+.loginBox h1{
+    color:#22c55e;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#aaa;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.inputBox{
+    position:relative;
+    margin-bottom:15px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#292929;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.eye{
+    position:absolute;
+    right:14px;
+    top:13px;
+    cursor:pointer;
+}
+
+button{
+    border:none;
+    border-radius:10px;
+    padding:13px 17px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.btnGreen{
+    width:100%;
+    background:#16a34a;
+    color:white;
+    margin-top:5px;
+}
+
+.btnWhite{
+    width:100%;
+    background:white;
+    color:#111;
+    margin-top:12px;
+}
+
+.message{
+    margin-top:15px;
+    font-size:14px;
+}
+
+/* APP */
+
+#app{
+    display:none;
+    min-height:100vh;
+}
+
+header{
+    background:#151515;
+    padding:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:10;
+    border-bottom:1px solid #292929;
+}
+
+header h2{
+    color:#22c55e;
+    font-size:20px;
+}
+
+.menuBtn{
+    background:#22c55e;
+    color:white;
+    padding:9px 12px;
+}
+
+nav{
+    display:none;
+    background:#1b1b1b;
+    padding:10px;
+}
+
+nav button{
+    width:100%;
+    margin:4px 0;
+    text-align:left;
+    background:#292929;
+    color:white;
+}
+
+nav button:hover{
+    background:#22c55e;
+}
+
+main{
+    padding:18px;
+    max-width:1000px;
+    margin:auto;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.title{
+    margin-bottom:18px;
+}
+
+.title h1{
+    color:#22c55e;
+    margin-bottom:6px;
+}
+
+.title p{
+    color:#aaa;
+}
+
+.card{
+    background:#1b1b1b;
+    padding:18px;
+    border-radius:15px;
+    margin-bottom:18px;
+}
+
+.card h3{
+    margin-bottom:12px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.stat{
+    background:#222;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:28px;
+    color:#22c55e;
+    margin-bottom:5px;
+}
+
+.formGrid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+}
+
+.item{
+    background:#242424;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:10px;
+}
+
+.item strong{
+    color:#22c55e;
+}
+
+.item small{
+    display:block;
+    color:#aaa;
+    margin-top:5px;
+}
+
+.actions{
+    margin-top:10px;
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.btnSmall{
+    padding:8px 11px;
+    font-size:13px;
+}
+
+.delete{
+    background:#dc2626;
+    color:white;
+}
+
+.edit{
+    background:#eab308;
+    color:#111;
+}
+
+.add{
+    background:#16a34a;
+    color:white;
+}
+
+.logout{
+    background:#dc2626 !important;
+    color:white !important;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid #333;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    color:#22c55e;
+}
+
+.empty{
+    color:#888;
+    text-align:center;
+    padding:20px;
+}
+
+@media(min-width:700px){
+
+    .formGrid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stats{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="loginPage">
+
+<div class="loginBox">
+
+<div class="logo">👾💚</div>
+
+<h1>EKETUVAMBA</h1>
+
+<p class="subtitle">
+Área reservada aos membros autorizados
+</p>
+
+<div class="inputBox">
+<input id="username" type="text" placeholder="Nome de usuário">
+</div>
+
+<div class="inputBox">
+<input id="password" type="password" placeholder="Senha">
+<span class="eye" id="eye">👁️</span>
+</div>
+
+<button class="btnGreen" id="loginBtn">
+ENTRAR
+</button>
+
+<button class="btnWhite" id="requestBtn">
+SOLICITAR ACESSO
+</button>
+
+<p class="message" id="loginMessage"></p>
+
+</div>
+
+</section>
+
+
+<!-- ================= APP ================= -->
+
+<section id="app">
+
+<header>
+
+<h2>👾 EKETUVAMBA 💚</h2>
+
+<button class="menuBtn" id="menuBtn">
+☰ MENU
+</button>
+
+</header>
+
+
+<nav id="menu">
+
+<button data-page="home">🏠 Início</button>
+<button data-page="members">👥 Membros</button>
+<button data-page="activities">📅 Atividades</button>
+<button data-page="history">📖 Histórico</button>
+<button data-page="contributions">🤝 Contribuições</button>
+<button data-page="quotas">💰 Quotas</button>
+<button data-page="access">🔐 Acessos</button>
+<button id="logoutBtn" class="logout">🚪 Sair</button>
+
+</nav>
+
+
+<main>
+
+
+<!-- ================= INÍCIO ================= -->
+
+<section id="home" class="page active">
+
+<div class="title">
+
+<h1>Bem-vindo à Eketuvamba 👾💚</h1>
+
+<p>
+Grupo social de fraternização entre irmãos.
+</p>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<strong id="totalMembers">0</strong>
+Membros
+</div>
+
+<div class="stat">
+<strong id="totalActivities">0</strong>
+Atividades
+</div>
+
+<div class="stat">
+<strong id="totalContributions">0</strong>
+Contribuições
+</div>
+
+<div class="stat">
+<strong id="totalQuotas">0</strong>
+Quotas pagas
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Sobre a Eketuvamba</h3>
+
+<p>
+A Eketuvamba é uma comunidade de fraternização entre irmãos,
+baseada na união, amizade, respeito, igualdade e apoio mútuo.
+</p>
+
+<br>
+
+<p>
+Os membros procuram fortalecer a comunidade através de reuniões,
+encontros, celebrações, atividades e apoio nos momentos de necessidade.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= MEMBROS ================= -->
+
+<section id="members" class="page">
+
+<div class="title">
+
+<h1>👥 Membros</h1>
+
+<p>Gestão dos membros da Eketuvamba.</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Adicionar membro</h3>
+
+<div class="formGrid">
+
+<input id="memberName" placeholder="Nome completo">
+
+<input id="memberRole" placeholder="Cargo / função">
+
+<input id="memberPhone" placeholder="Telefone">
+
+<input id="memberDate" type="date">
+
+</div>
+
+<br>
+
+<button class="add" id="addMemberBtn">
++ Adicionar membro
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>Lista de membros</h3>
+
+<div id="membersList"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ATIVIDADES ================= -->
+
+<section id="activities" class="page">
+
+<div class="title">
+
+<h1>📅 Atividades</h1>
+
+<p>Organização dos próximos eventos.</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Adicionar atividade</h3>
+
+<div class="formGrid">
+
+<input id="activityName" placeholder="Nome da atividade">
+
+<input id="activityDate" type="date">
+
+<input id="activityPlace" placeholder="Local">
+
+<input id="activityTime" placeholder="Hora">
+
+</div>
+
+<br>
+
+<textarea id="activityPurpose"
+placeholder="O que pretendemos fazer?"></textarea>
+
+<br><br>
+
+<button class="add" id="addActivityBtn">
++ Adicionar atividade
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>Atividades registadas</h3>
+
+<div id="activitiesList"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= HISTÓRICO ================= -->
+
+<section id="history" class="page">
+
+<div class="title">
+
+<h1>📖 Histórico</h1>
+
+<p>Registo da história da Eketuvamba.</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Informações da criação</h3>
+
+<p>
+<strong>Nome:</strong> Eketuvamba 👾💚
+</p>
+
+<br>
+
+<p>
+<strong>Tipo:</strong> Grupo social de fraternização entre irmãos.
+</p>
+
+<br>
+
+<p>
+<strong>Objetivo:</strong> União, amizade, apoio mútuo e fortalecimento
+da comunidade.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Adicionar acontecimento histórico</h3>
+
+<input id="historyDate" type="date">
+
+<br><br>
+
+<textarea id="historyText"
+placeholder="Descreva o acontecimento..."></textarea>
+
+<br><br>
+
+<button class="add" id="addHistoryBtn">
++ Guardar no histórico
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>Registos históricos</h3>
+
+<div id="historyList"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CONTRIBUIÇÕES ================= -->
+
+<section id="contributions" class="page">
+
+<div class="title">
+
+<h1>🤝 Contribuições</h1>
+
+<p>Registe quem contribuiu em cada atividade.</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Nova contribuição</h3>
+
+<div class="formGrid">
+
+<input id="contributionMember"
+placeholder="Nome do membro">
+
+<input id="contributionActivity"
+placeholder="Atividade">
+
+<input id="contributionValue"
+placeholder="Valor / contribuição">
+
+<input id="contributionDate" type="date">
+
+</div>
+
+<br>
+
+<textarea id="contributionDescription"
+placeholder="Descrição da contribuição"></textarea>
+
+<br><br>
+
+<button class="add" id="addContributionBtn">
++ Registar contribuição
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>Registos</h3>
+
+<div id="contributionsList"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= QUOTAS ================= -->
+
+<section id="quotas" class="page">
+
+<div class="title">
+
+<h1>💰 Quotas</h1>
+
+<p>Quota mensal definida: <strong>200 Kz</strong>.</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Registar pagamento</h3>
+
+<div class="formGrid">
+
+<input id="quotaMember"
+placeholder="Nome do membro">
+
+<input id="quotaMonth"
+type="month">
+
+</div>
+
+<br>
+
+<button class="add" id="addQuotaBtn">
++ Registar quota de 200 Kz
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>Histórico de quotas</h3>
+
+<div id="quotasList"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ACESSOS ================= -->
+
+<section id="access" class="page">
+
+<div class="title">
+
+<h1>🔐 Pedidos de acesso</h1>
+
+<p>Gerencie pedidos de entrada na área reservada.</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Solicitações</h3>
+
+<div id="requestsList"></div>
+
+</div>
+
+</section>
+
+
+</main>
+
+</section>
+
+
+<script>
+
+/* =====================================================
+   ARMAZENAMENTO SEGURO PARA O ACODE
+===================================================== */
+
+function loadData(key, fallback){
+
+    try{
+
+        const data = localStorage.getItem(key);
+
+        if(data){
+            return JSON.parse(data);
+        }
+
+        return fallback;
+
+    }catch(error){
+
+        console.log("Armazenamento indisponível:", error);
+
+        return fallback;
+    }
+}
+
+
+function saveData(key,data){
+
+    try{
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(data)
+        );
+
+    }catch(error){
+
+        console.log("Não foi possível guardar:",error);
+
+    }
+}
+
+
+/* =====================================================
+   DADOS
+===================================================== */
+
+let members = loadData("ek_members",[]);
+let activities = loadData("ek_activities",[]);
+let history = loadData("ek_history",[]);
+let contributions = loadData("ek_contributions",[]);
+let quotas = loadData("ek_quotas",[]);
+let requests = loadData("ek_requests",[]);
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const loginPage =
+document.getElementById("loginPage");
+
+const app =
+document.getElementById("app");
+
+const username =
+document.getElementById("username");
+
+const password =
+document.getElementById("password");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+
+document.getElementById("eye")
+.addEventListener("click",function(){
+
+    if(password.type === "password"){
+
+        password.type = "text";
+        this.innerText = "🙈";
+
+    }else{
+
+        password.type = "password";
+        this.innerText = "👁️";
+
+    }
+
+});
+
+
+document.getElementById("loginBtn")
+.addEventListener("click",function(){
+
+    const user = username.value.trim();
+    const pass = password.value;
+
+    if(user === "admin" && pass === "1234"){
+
+        loginPage.style.display = "none";
+        app.style.display = "block";
+
+        loginMessage.innerText = "";
+
+        renderAll();
+
+    }else{
+
+        loginMessage.innerText =
+        "❌ Usuário ou senha incorretos.";
+
+        loginMessage.style.color = "#ef4444";
+
+    }
+
+});
+
+
+/* =====================================================
+   PEDIDO DE ACESSO
+===================================================== */
+
+document.getElementById("requestBtn")
+.addEventListener("click",function(){
+
+    const name =
+    prompt("Digite o seu nome:");
+
+    if(!name) return;
+
+    const reason =
+    prompt("Por que deseja entrar na Eketuvamba?");
+
+    if(!reason) return;
+
+    requests.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        reason:reason,
+
+        status:"Pendente",
+
+        date:new Date().toLocaleDateString("pt-AO")
+
+    });
+
+    saveData("ek_requests",requests);
+
+    alert("✅ Pedido enviado com sucesso!");
+
+});
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+document.getElementById("menuBtn")
+.addEventListener("click",function(){
+
+    const menu =
+    document.getElementById("menu");
+
+    if(menu.style.display === "block"){
+
+        menu.style.display = "none";
+
+    }else{
+
+        menu.style.display = "block";
+
+    }
+
+});
+
+
+document.querySelectorAll("[data-page]")
+.forEach(function(button){
+
+    button.addEventListener("click",function(){
+
+        const page =
+        this.getAttribute("data-page");
+
+        document.querySelectorAll(".page")
+        .forEach(function(p){
+
+            p.classList.remove("active");
+
+        });
+
+        document.getElementById(page)
+        .classList.add("active");
+
+        document.getElementById("menu")
+        .style.display = "none";
+
+    });
+
+});
+
+
+/* =====================================================
+   SAIR
+===================================================== */
+
+document.getElementById("logoutBtn")
+.addEventListener("click",function(){
+
+    app.style.display = "none";
+
+    loginPage.style.display = "flex";
+
+    username.value = "";
+    password.value = "";
+
+});
+
+
+/* =====================================================
+   MEMBROS
+===================================================== */
+
+document.getElementById("addMemberBtn")
+.addEventListener("click",function(){
+
+    const name =
+    document.getElementById("memberName").value.trim();
+
+    const role =
+    document.getElementById("memberRole").value.trim();
+
+    const phone =
+    document.getElementById("memberPhone").value.trim();
+
+    const date =
+    document.getElementById("memberDate").value;
+
+
+    if(!name){
+
+        alert("Digite o nome do membro.");
+
+        return;
+    }
+
+
+    members.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        role:role || "Membro",
+
+        phone:phone || "Não informado",
+
+        date:date || ""
+
+    });
+
+
+    saveData("ek_members",members);
+
+
+    document.getElementById("memberName").value = "";
+    document.getElementById("memberRole").value = "";
+    document.getElementById("memberPhone").value = "";
+    document.getElementById("memberDate").value = "";
+
+
+    renderMembers();
+
+});
+
+
+function renderMembers(){
+
+    const box =
+    document.getElementById("membersList");
+
+    if(members.length === 0){
+
+        box.innerHTML =
+        '<div class="empty">Nenhum membro registado.</div>';
+
+        return;
+    }
+
+
+    box.innerHTML = "";
+
+
+    members.forEach(function(member){
+
+        const div =
+        document.createElement("div");
+
+        div.className = "item";
+
+
+        div.innerHTML = `
+
+        <strong>${escapeHTML(member.name)}</strong>
+
+        <small>
+        Cargo: ${escapeHTML(member.role)}
+        </small>
+
+        <small>
+        Telefone: ${escapeHTML(member.phone)}
+        </small>
+
+        ${member.date ?
+        `<small>Entrada: ${escapeHTML(member.date)}</small>`
+        :""}
+
+        <div class="actions">
+
+        <button class="btnSmall edit">
+        Alterar cargo
+        </button>
+
+        <button class="btnSmall delete">
+        Eliminar
+        </button>
+
+        </div>
+
+        `;
+
+
+        div.querySelector(".edit")
+        .addEventListener("click",function(){
+
+            const newRole =
+            prompt(
+                "Novo cargo para " + member.name,
+                member.role
+            );
+
+            if(newRole){
+
+                member.role = newRole;
+
+                saveData("ek_members",members);
+
+                renderMembers();
+
+            }
+
+        });
+
+
+        div.querySelector(".delete")
+        .addEventListener("click",function(){
+
+            if(confirm(
+                "Eliminar " + member.name + "?"
+            )){
+
+                members =
+                members.filter(
+                    m => m.id !== member.id
+                );
+
+                saveData("ek_members",members);
+
+                renderMembers();
+
+            }
+
+        });
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   ATIVIDADES
+===================================================== */
+
+document.getElementById("addActivityBtn")
+.addEventListener("click",function(){
+
+    const name =
+    document.getElementById("activityName").value.trim();
+
+    const date =
+    document.getElementById("activityDate").value;
+
+    const place =
+    document.getElementById("activityPlace").value.trim();
+
+    const time =
+    document.getElementById("activityTime").value.trim();
+
+    const purpose =
+    document.getElementById("activityPurpose").value.trim();
+
+
+    if(!name){
+
+        alert("Digite o nome da atividade.");
+
+        return;
+    }
+
+
+    activities.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        date:date,
+
+        place:place,
+
+        time:time,
+
+        purpose:purpose
+
+    });
+
+
+    saveData("ek_activities",activities);
+
+
+    document.getElementById("activityName").value="";
+    document.getElementById("activityDate").value="";
+    document.getElementById("activityPlace").value="";
+    document.getElementById("activityTime").value="";
+    document.getElementById("activityPurpose").value="";
+
+
+    renderActivities();
+
+});
+
+
+function renderActivities(){
+
+    const box =
+    document.getElementById("activitiesList");
+
+
+    if(activities.length === 0){
+
+        box.innerHTML =
+        '<div class="empty">Nenhuma atividade registada.</div>';
+
+        return;
+    }
+
+
+    box.innerHTML = "";
+
+
+    activities.forEach(function(activity){
+
+        const div =
+        document.createElement("div");
+
+        div.className="item";
+
+
+        div.innerHTML = `
+
+        <strong>${escapeHTML(activity.name)}</strong>
+
+        ${activity.date ?
+        `<small>📅 Data: ${escapeHTML(activity.date)}</small>`
+        :""}
+
+        ${activity.place ?
+        `<small>📍 Local: ${escapeHTML(activity.place)}</small>`
+        :""}
+
+        ${activity.time ?
+        `<small>⏰ Hora: ${escapeHTML(activity.time)}</small>`
+        :""}
+
+        ${activity.purpose ?
+        `<small>🎯 Objetivo: ${escapeHTML(activity.purpose)}</small>`
+        :""}
+
+        <div class="actions">
+
+        <button class="btnSmall delete">
+        Eliminar
+        </button>
+
+        </div>
+        `;
+
+
+        div.querySelector(".delete")
+        .addEventListener("click",function(){
+
+            if(confirm("Eliminar esta atividade?")){
+
+                activities =
+                activities.filter(
+                    a => a.id !== activity.id
+                );
+
+                saveData("ek_activities",activities);
+
+                renderActivities();
+
+            }
+
+        });
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   HISTÓRICO
+===================================================== */
+
+document.getElementById("addHistoryBtn")
+.addEventListener("click",function(){
+
+    const date =
+    document.getElementByI
