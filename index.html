@@ -1291,4 +1291,86 @@ document.getElementById("addHistoryBtn")
 .addEventListener("click",function(){
 
     const date =
-    document.getElementByI
+    document.getElementById("alterarSenhaBtn").onclick=alterarSenha;
+
+function atualizarEstatisticas(){
+
+document.getElementById("totalMembros").innerText=membros.length;
+document.getElementById("totalAtividades").innerText=atividades.length;
+document.getElementById("totalContribuicoes").innerText=contribuicoes.length;
+document.getElementById("totalQuotas").innerText=quotas.length;
+
+}
+
+function atualizarPainel(){
+
+document.getElementById("painelMembros").innerText=membros.length;
+document.getElementById("painelAtividades").innerText=atividades.length;
+
+let totalContribuicoes=contribuicoes.reduce(
+function(total,item){
+return total+(Number(item.valor)||0);
+},0);
+
+let totalQuotas=quotas.reduce(
+function(total){
+return total+200;
+},0);
+
+let pendentes=pedidosAcesso.filter(
+function(item){
+return item.estado==="Pendente";
+}).length;
+
+document.getElementById("painelContribuicoes").innerText=
+totalContribuicoes+" Kz";
+
+document.getElementById("painelQuotas").innerText=
+totalQuotas+" Kz";
+
+document.getElementById("painelPendentes").innerText=
+pendentes;
+
+}
+
+function iniciar(){
+
+renderizarMembros();
+renderizarAtividades();
+renderizarHistorico();
+renderizarContribuicoes();
+renderizarQuotas();
+renderizarAcessos();
+atualizarEstatisticas();
+atualizarPainel();
+
+}
+
+document.getElementById("sair").onclick=function(){
+
+if(!confirm("Deseja realmente sair?"))return;
+
+guardarTudo();
+
+document.getElementById("app").style.display="none";
+document.getElementById("login").style.display="flex";
+
+document.getElementById("usuario").value="";
+document.getElementById("senha").value="";
+document.getElementById("mensagemLogin").innerText="";
+
+window.usuarioAtual=null;
+window.nomeUsuarioAtual=null;
+
+};
+
+window.addEventListener("beforeunload",function(){
+guardarTudo();
+});
+
+iniciar();
+
+</script>
+
+</body>
+</html>
